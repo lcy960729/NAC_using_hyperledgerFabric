@@ -1,95 +1,187 @@
 package main.java.com.example.nac.controller.v1;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import main.java.com.example.nac.Enum.ChanCode;
-import main.java.com.example.nac.fabric.chaincode.InvokeQueryChaincode;
-import main.java.com.example.nac.fabric.network.DeployInstantiateChaincode;
-import org.hyperledger.fabric.sdk.exception.*;
+import main.java.com.example.nac.DTO.ChainCodeArgsDTO;
+import main.java.com.example.nac.DTO.RegisterMethodDTO;
+import main.java.com.example.nac.DTO.UpdateMethodDTO;
+import main.java.com.example.nac.fabric.FabricNetwork;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 public class LookUpTableController {
-
-    private final DeployInstantiateChaincode deployInstantiateChaincode = new DeployInstantiateChaincode();
-    private final InvokeQueryChaincode invokeQueryChaincode = null;
+    FabricNetwork fabricNetwork = new FabricNetwork();
 
     @PostMapping(path = "/lookUpTable")
-    public void createLookUpTable(@RequestBody String lookUpTableJson) throws ProposalException, InvalidArgumentException, ParseException {
-        invokeQueryChaincode.setChaincodeName(ChanCode.CREATE_LookUpTable.getName());
-        invokeQueryChaincode.setFunc(ChanCode.CREATE_LookUpTable.getFunc());
+    public ResponseEntity<String> createLookUpTable(@RequestHeader(value = "userName") String userName,
+                                                    @RequestHeader(value = "secretKey") String secretKey,
+                                                    @RequestHeader(value = "orgAffiliation") String orgAffiliation,
+                                                    @RequestHeader(value = "orgMspId") String orgMspId,
+                                                    @RequestBody String argumentsJson) {
 
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(lookUpTableJson);
+        try {
+            ArrayList<String> arguments = new ArrayList<>();
+            JSONArray jsonArray = (JSONArray) ((JSONObject) new JSONParser().parse(argumentsJson)).get("arguments");
+            jsonArray.forEach(jsonItem -> arguments.add((String) jsonItem));
 
-        List<String> arguments = new LinkedList<>();
-        //arguments.add(methodName);
-        invokeQueryChaincode.setArguments(arguments);
+            ChainCodeArgsDTO chainCodeArgsDTO = ChainCodeArgsDTO.builder()
+                    .userName(userName)
+                    .orgAffiliation(orgAffiliation)
+                    .orgMspId(orgMspId)
+                    .secretKey(secretKey)
+                    .chaincodeName("rc")
+                    .func("methodRegister")
+                    .arguments(arguments)
+                    .build();
 
-        invokeQueryChaincode.invoke();
+            fabricNetwork.invoke(chainCodeArgsDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().build();
+        }
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping(path = "/lookUpTable/{methodName}")
-    public void getContract(@PathVariable("methodName") String methodName) throws ProposalException, InvalidArgumentException {
-        invokeQueryChaincode.setChaincodeName(ChanCode.GET_LookUpTable.getName());
-        invokeQueryChaincode.setFunc(ChanCode.GET_LookUpTable.getFunc());
-
-        List<String> arguments = new LinkedList<>();
-        arguments.add(methodName);
-        invokeQueryChaincode.setArguments(arguments);
-
-        invokeQueryChaincode.invoke();
-    }
-
+    //api/v1/Login
     @PutMapping(path = "/lookUpTable/{methodName}")
-    public void updateLookUpTable(@PathVariable("methodName") String methodName, @RequestBody String requestJson) throws ChaincodeEndorsementPolicyParseException, InvalidArgumentException, ProposalException, IOException {
-        invokeQueryChaincode.setChaincodeName(ChanCode.UPDATE_LookUpTable.getName());
-        invokeQueryChaincode.setFunc(ChanCode.UPDATE_LookUpTable.getFunc());
-        //invokeQueryChaincode.setArguments();
+    public ResponseEntity<String> updateLookUpTable(@PathVariable("methodName") String methodName,
+                                                    @RequestHeader(value = "userName") String userName,
+                                                    @RequestHeader(value = "secretKey") String secretKey,
+                                                    @RequestHeader(value = "orgAffiliation") String orgAffiliation,
+                                                    @RequestHeader(value = "orgMspId") String orgMspId,
+                                                    @RequestBody String argumentsJson) {
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            UpdateMethodDTO updateMethodDTO = objectMapper.readValue(argumentsJson, UpdateMethodDTO.class);
+            updateMethodDTO.setMethodName(methodName);
+
+            ArrayList<String> arguments = new ArrayList<>();
+            arguments.add(updateMethodDTO.getMethodName());
+            arguments.add(objectMapper.writeValueAsString(updateMethodDTO.getSubject()));
+            arguments.add(objectMapper.writeValueAsString(updateMethodDTO.getObjects()));
+            arguments.add(updateMethodDTO.getScName());
+            arguments.add(updateMethodDTO.getAbi());
+
+            ChainCodeArgsDTO chainCodeArgsDTO = ChainCodeArgsDTO.builder()
+                    .userName(userName)
+                    .orgAffiliation(orgAffiliation)
+                    .orgMspId(orgMspId)
+                    .secretKey(secretKey)
+                    .chaincodeName("rc")
+                    .func("methodUpdate")
+                    .arguments(arguments)
+                    .build();
+
+            fabricNetwork.invoke(chainCodeArgsDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(path = "/lookUpTable/{methodName}")
-    public void deleteLookUpTable(@PathVariable("methodName") String methodName) throws ProposalException, InvalidArgumentException {
-        invokeQueryChaincode.setChaincodeName(ChanCode.DELETE_LookUpTable.getName());
-        invokeQueryChaincode.setFunc(ChanCode.DELETE_LookUpTable.getFunc());
+    public ResponseEntity<String> deleteLookUpTable(@PathVariable("methodName") String methodName,
+                                                    @RequestHeader(value = "userName") String userName,
+                                                    @RequestHeader(value = "secretKey") String secretKey,
+                                                    @RequestHeader(value = "orgAffiliation") String orgAffiliation,
+                                                    @RequestHeader(value = "orgMspId") String orgMspId) {
 
-        List<String> arguments = new LinkedList<>();
-        arguments.add(methodName);
-        invokeQueryChaincode.setArguments(arguments);
+        try {
+            ArrayList<String> arguments = new ArrayList<>();
+            arguments.add(methodName);
 
-        invokeQueryChaincode.invoke();
+            ChainCodeArgsDTO chainCodeArgsDTO = ChainCodeArgsDTO.builder()
+                    .userName(userName)
+                    .orgAffiliation(orgAffiliation)
+                    .orgMspId(orgMspId)
+                    .secretKey(secretKey)
+                    .chaincodeName("rc")
+                    .func("methodDelete")
+                    .arguments(arguments)
+                    .build();
+
+            fabricNetwork.invoke(chainCodeArgsDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(path = "/lookUpTable")
-    public void getContractList() throws ProposalException, InvalidArgumentException, ParseException {
-        invokeQueryChaincode.setChaincodeName(ChanCode.GET_LookUpTableList.getName());
-        invokeQueryChaincode.setFunc(ChanCode.GET_LookUpTableList.getFunc());
+    public ResponseEntity<String> getContract(@RequestParam("methodName") String methodName,
+                                              @RequestHeader(value = "userName") String userName,
+                                              @RequestHeader(value = "secretKey") String secretKey,
+                                              @RequestHeader(value = "orgAffiliation") String orgAffiliation,
+                                              @RequestHeader(value = "orgMspId") String orgMspId) {
 
-        List<String> arguments = new LinkedList<>();
-        arguments.add("");
-        invokeQueryChaincode.setArguments(arguments);
+        try {
+            ArrayList<String> arguments = new ArrayList<>();
+            arguments.add(methodName);
 
-        invokeQueryChaincode.invoke();
+            ChainCodeArgsDTO chainCodeArgsDTO = ChainCodeArgsDTO.builder()
+                    .userName(userName)
+                    .orgAffiliation(orgAffiliation)
+                    .orgMspId(orgMspId)
+                    .secretKey(secretKey)
+                    .chaincodeName("rc")
+                    .func("getContract")
+                    .arguments(arguments)
+                    .build();
+
+            String result = fabricNetwork.query(chainCodeArgsDTO, false);
+
+            if (result != null)
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            else
+                return ResponseEntity.unprocessableEntity().build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().build();
+        }
     }
 
-    @GetMapping(path = "/init")
-    public void init() throws ChaincodeEndorsementPolicyParseException, InvalidArgumentException, ProposalException, IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, InvalidKeySpecException, IllegalAccessException, NoSuchAlgorithmException, CryptoException, ClassNotFoundException, TransactionException, InterruptedException {
-        //deployInstantiateChaincode.run();
-        //Thread.sleep(1000);
-        deployInstantiateChaincode.runRC();
-        //Thread.sleep(1000);
-        //deployInstantiateChaincode.runJC();
-    }
+    @GetMapping(path = "/lookUpTables")
+    public ResponseEntity<String> getContractList(@RequestHeader(value = "userName") String userName,
+                                                  @RequestHeader(value = "secretKey") String secretKey,
+                                                  @RequestHeader(value = "orgAffiliation") String orgAffiliation,
+                                                  @RequestHeader(value = "orgMspId") String orgMspId) {
 
+        try {
+            ArrayList<String> arguments = new ArrayList<>();
+
+            ChainCodeArgsDTO chainCodeArgsDTO = ChainCodeArgsDTO.builder()
+                    .userName(userName)
+                    .orgAffiliation(orgAffiliation)
+                    .orgMspId(orgMspId)
+                    .secretKey(secretKey)
+                    .chaincodeName("rc")
+                    .func("getMethodNameList")
+                    .arguments(arguments)
+                    .build();
+
+            String result = fabricNetwork.query(chainCodeArgsDTO, true);
+
+            if (result != null)
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            else
+                return ResponseEntity.unprocessableEntity().build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().build();
+        }
+    }
 }

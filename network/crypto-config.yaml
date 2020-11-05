@@ -29,8 +29,8 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # Org1
   # ---------------------------------------------------------------------------
-  - Name: Org1
-    Domain: org1.example.com
+  - Name: ServiceOrg
+    Domain: ServiceOrg.example.com
     EnableNodeOUs: true
     CA:
         Country: US
@@ -91,8 +91,8 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # Org2: See "Org1" for full specification
   # ---------------------------------------------------------------------------
-  - Name: Org2
-    Domain: org2.example.com
+  - Name: UserOrg
+    Domain: UserOrg.example.com
     EnableNodeOUs: true
     CA:
         Country: US

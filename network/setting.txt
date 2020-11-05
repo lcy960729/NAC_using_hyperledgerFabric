@@ -1,2 +1,0 @@
-docker pull hyperledger/fabric-baseos:0.4.17
-docker pull hyperledger/fabric-ccenv:1.4.1

@@ -1,8 +1,15 @@
 package main.java.com.example.nac.DTO;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class PolicyTableDTO {
     private String methodName;
     private String resource;
