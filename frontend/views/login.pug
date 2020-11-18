@@ -1,0 +1,14 @@
+extends layouts/main
+
+block content
+    .form-container
+        .login_form
+            h2 NAC Service
+            form
+                input(type="text", id="id",placeholder="아이디를 입력하세요",value="admin", required=true)
+                input(type="password", id="pw",placeholder="비밀번호를 입력하세요",value="adminpw", required=true)
+                input(type="button", value="로그인",id="loginBtn")
+        .join-form
+            p
+                a(href=routes.join) 회원가입
+    script(src="/static/login.js")

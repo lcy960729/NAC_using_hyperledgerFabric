@@ -1,0 +1,16 @@
+extends layouts/main
+
+block content
+
+    .error_container
+        .error_img
+            img(id = "noChannel", src="/imgs2", alt="no-channel")
+            img(id = "loding", src="/lodingSvg", alt="loding")
+        #error_text
+            strong No Channel
+            p 생성된 채널이 없습니다.
+            p 새로운 채널을 만드시겠습니까?
+        .createChannel
+            button#createBtn 채널 생성하기
+    script(src="/static/createChannel.js")
+        

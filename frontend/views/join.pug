@@ -1,0 +1,15 @@
+extends layouts/main
+
+block content
+    .form-container
+        h2 NAC Service
+        form(action=routes.join, method="post")
+            input(type="text", name="name", placeholder="이름을 입력하세요",required=true)        
+            input(type="text", name="text", placeholder="아이디를 입력하세요",required=true)
+            input(type="password", name="password", placeholder="영문, 숫자, 특수문자 8-30자",required=true)
+            input(type="password", name="password2", placeholder="비밀번호를 다시 입력하세요",required=true)
+            input(type="submit",value="가입하기")
+        .cur-user
+            p 이미 계정이 있으세요?
+                a(href=routes.login) 로그인
+        //- include partials/socialLogin

@@ -1,0 +1,68 @@
+extends layouts/main
+
+block content
+    #container
+        .content__column.lookUp-table
+            .table-header
+                h2 LookUp Table
+                button(type="submit" id="addNetworkBtn") 네트워크 추가
+            #addUser-popup
+                button(id="usp-closeBtn") X
+                span(id="addUser_popup_title") 사용자 추가
+                form(action="#" method="POST" id="addUserForm")
+                    input(type="text" placeholder="MethodName" disabled=true id="methodNameAtAddUser")
+                    input(type="text" placeholder="Object Name" id="objectName")
+                    input(type="text" placeholder="Object MacAdress" id="objectMacAddress")
+                    input(type="text" placeholder="Resource" id="resource")
+                    input(type="text" placeholder="Action" id="action")
+                    input(type="text" placeholder="Permission (true/false)" id="permission")
+                    input(type="text" placeholder="Threshold" id="threshold")
+                    input(type="text" placeholder="Min Interval (m)" id="minInterval")
+                    button(type="button" id="submitUserBtn") Add User    
+            #network-popup
+                button(id="closeBtn") X
+                span 네트워크 생성
+                form(action="#" method="POST" id="popup")
+                    input(type="text" placeholder="MethodName" id="methodName")
+                    input(type="text" placeholder="SubjectName" id="subjectName")
+                    input(type="text" placeholder="MacAddress" id="macAddress")
+                    button(type="button" id="createNetworkBtn") Create Network
+            select(id="selectBox" name="selectBox")
+                option(value="") 선택하세요
+            #deleteNetworkBtn
+                button 네트워크 삭제
+            #content-layer
+                #lookupTable
+                .lookup-header
+                    button(type="button" id="addUserBtn") 사용자 추가
+                table#objectTable
+                    thead
+                        tr
+                        th
+                        th Object Name
+                        th Object MacAddress
+                    tbody#tbody
+        .content__column.policy-table
+            .table-header
+                h2 Policy Table
+                .button-container 
+                    button(type="button" id="updateUserBtn") 사용자 수정
+                    button(type="button" id="deleteUserBtn") 사용자 삭제
+            #updateUser-popup
+            #policy-layer
+                #policyTable
+            
+        .content__column.misbehavior-table
+            h2 Misbehavior Table
+            #misbe-layer
+                #misbeTable
+                table#misTable
+                    thead
+                        tr
+                        th
+                        th reason
+                        th penalty (m)
+                        th time
+                    tbody#misbody
+    script(src="/static/home.js")
+                

@@ -1,0 +1,12 @@
+extends layouts/main
+
+block content
+    .error_container
+        .error_img
+            img(src="/imgs", alt="error")
+        #error_text
+            strong Error!
+            p 로그인에 실패하였습니다
+            p 관리자에게 승인을 요청하세요
+        .home
+            a(href="#")
