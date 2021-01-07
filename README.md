@@ -1,5 +1,5 @@
 # NAC_using_hyperledgerFabric
-##동작 환경
+## 동작 환경
 프론트 서버
 Node.js 	14.15.0.
 npm       	6.14.8
@@ -11,7 +11,7 @@ java 	openJDK Runtime Environment 1.8.0_272
 go		1.15.4
 docker 	20.10.0
 ***
-##동작 방식
+## 동작 방식
 위에 제시한 모든 환경을 설치 후 아래의 명령을 따르면 됨
 
 1.프론트 서버, 백엔드 서버, 블록체인 네트워크 실행 
@@ -30,7 +30,7 @@ python IoTGateway.py [Network Interface] [Web Server Address] [Web Port]
 	[Web Server Address]는 백엔드 서버의 ip주소
 	[Web Port]는 백엔드 서버의 포트 주소
 ***
-##폴더 구조
+## 폴더 구조
 backend - 백엔드 서버 코드입니다.  
 frontend - 프론트 서버 코드입니다.  
 docs - 구현 문서 파일과 시연 영상이 있습니다.  
