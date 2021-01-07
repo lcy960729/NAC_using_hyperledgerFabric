@@ -1,4 +1,4 @@
-const server = '180.189.90.200';
+const server = 'localhost';
 const createChannelBtn = document.getElementById('createBtn');
 const errorText = document.getElementById('error_text');
 

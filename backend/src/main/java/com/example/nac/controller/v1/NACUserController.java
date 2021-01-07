@@ -19,17 +19,6 @@ public class NACUserController {
         this.fabricNetwork = fabricNetwork;
     }
 
-    @GetMapping(path = "/createChannel")
-    public ResponseEntity<String> createChannel() {
-        try {
-            fabricNetwork.createChannel();
-            Thread.sleep(1000);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.unprocessableEntity().build();
-        }
-    }
-
     @PostMapping(path = "/login")
     public ResponseEntity<String> login(@RequestBody String loginData) {
         try {
@@ -37,9 +26,9 @@ public class NACUserController {
             LoginDTO loginDTO = objectMapper.readValue(loginData, LoginDTO.class);
 
             if (loginDTO.getId().equals("admin") && loginDTO.getPw().equals("adminpw"))
-                return new ResponseEntity("true", HttpStatus.OK);
+                return new ResponseEntity(HttpStatus.OK);
             else
-                return new ResponseEntity("false", HttpStatus.FORBIDDEN);
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().build();
@@ -52,6 +41,17 @@ public class NACUserController {
             return new ResponseEntity("true", HttpStatus.OK);
         else
             return new ResponseEntity("false", HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/createChannel")
+    public ResponseEntity<String> createChannel() {
+        try {
+            fabricNetwork.createChannel();
+            Thread.sleep(1000);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
     }
 
     @GetMapping(path = "/deployRC")

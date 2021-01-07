@@ -30,8 +30,8 @@ public class LookUpTableController {
 
     @PostMapping(path = "/lookUpTables")
     public ResponseEntity<String> addLookUpTable(@RequestBody String registerNetworkData,
-                                               @RequestHeader(value = "orgAffiliation") String orgAffiliation,
-                                               @RequestHeader(value = "orgMspId") String orgMspId) {
+                                                 @RequestHeader(value = "orgAffiliation") String orgAffiliation,
+                                                 @RequestHeader(value = "orgMspId") String orgMspId) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             RegisterMethodDTO registerMethodDTO = objectMapper.readValue(registerNetworkData, RegisterMethodDTO.class);
@@ -63,6 +63,8 @@ public class LookUpTableController {
             } else {
                 return new ResponseEntity(result.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
@@ -110,6 +112,7 @@ public class LookUpTableController {
         }
 
     }
+
 
     @DeleteMapping(path = "/lookUpTables/{id}")
     public ResponseEntity<String> deleteLookUpTable(@PathVariable("id") String id,
@@ -178,8 +181,8 @@ public class LookUpTableController {
 
     @GetMapping(path = "/lookUpTables/object")
     public ResponseEntity<String> getObjList(@RequestParam("macAddress") String macAddress,
-                                              @RequestHeader(value = "orgAffiliation") String orgAffiliation,
-                                              @RequestHeader(value = "orgMspId") String orgMspId) {
+                                             @RequestHeader(value = "orgAffiliation") String orgAffiliation,
+                                             @RequestHeader(value = "orgMspId") String orgMspId) {
 
         try {
             ArrayList<String> arguments = new ArrayList<>();

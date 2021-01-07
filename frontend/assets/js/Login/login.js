@@ -1,4 +1,4 @@
-const server = '180.189.90.200';
+const server = 'localhost';
 
 const isCreatedChannel = () => {
   fetch(`http://` + server + `:9322/api/v1/NACUser/isCreatedChannel`, {}).then(

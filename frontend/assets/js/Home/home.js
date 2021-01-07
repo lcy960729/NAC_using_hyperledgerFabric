@@ -5,7 +5,7 @@ import './createNetwork';
 import './deleteNetwork';
 import './deleteUser';
 
-global.server = '180.189.90.200';
+global.server = 'localhost';
 global.networkList = new Array();
 global.lookUpTable = new Object();
 global.policyTable = new Object();
