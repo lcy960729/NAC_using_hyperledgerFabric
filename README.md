@@ -6,10 +6,10 @@
 이후 공유할 네트워크 환경을 추가하고 허용할 단말 노드들의 정보를 입력하여 네트워크 공유  
 
 ### 1.채널이 없을때
-![메인 화면](https://user-images.githubusercontent.com/58020519/106419601-272f0200-649c-11eb-9d9d-c22ca585958c.png)
+![채널이 없을때](https://user-images.githubusercontent.com/58020519/106419618-31510080-649c-11eb-8f3c-443acc046487.png)
 
 ### 2.체인 코드 업로드
-![메인 화면](https://user-images.githubusercontent.com/58020519/106419601-272f0200-649c-11eb-9d9d-c22ca585958c.png)
+![체인코드 업로드](https://user-images.githubusercontent.com/58020519/106419630-357d1e00-649c-11eb-986b-996def41c046.png)
 
 ### 3.메인 화면
 ![메인 화면](https://user-images.githubusercontent.com/58020519/106419601-272f0200-649c-11eb-9d9d-c22ca585958c.png)
