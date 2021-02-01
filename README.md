@@ -2,7 +2,7 @@
 하이퍼레저 페브릭을 이용하여 NAC 접근 권한 상태를 저장하며 라즈베리파이를 이용하여 Network 접근을 제한.  
   
 아래의 논문 내용을 참고하여 구현  
-Smart Contract-Based AccessControl for the Internet of Things - Yuanyu Zhang, Member, IEEE, Shoji Kasahara, Member, IEEE, Yulong Shen, Member, IEEE,
+***Smart Contract-Based AccessControl for the Internet of Things - Yuanyu Zhang, Member, IEEE, Shoji Kasahara, Member, IEEE, Yulong Shen, Member, IEEE,***
 ## 동작 방식
 가장 초기 설정에서 채널이 없을 시 블록체인 네트워크에 채널 생성 및 체인 코드 업로드  
 이후 공유할 네트워크 환경을 추가하고 허용할 단말 노드들의 정보를 입력하여 네트워크 공유  
