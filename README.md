@@ -1,4 +1,19 @@
-# NAC_using_hyperledgerFabric
+# NAC_using_hyperledgerFabric  
+하이퍼레저 페브릭을 이용하여 NAC 접근 권한 상태를 저장하며 라즈베리파이를 이용하여 Network 접근을 제한.  
+
+## 동작 방식
+가장 초기 설정에서 채널이 없을 시 블록체인 네트워크에 채널 생성 및 체인 코드 업로드  
+이후 공유할 네트워크 환경을 추가하고 허용할 단말 노드들의 정보를 입력하여 네트워크 공유  
+
+### 1.채널이 없을때
+![메인 화면](https://user-images.githubusercontent.com/58020519/106419601-272f0200-649c-11eb-9d9d-c22ca585958c.png)
+
+### 2.체인 코드 업로드
+![메인 화면](https://user-images.githubusercontent.com/58020519/106419601-272f0200-649c-11eb-9d9d-c22ca585958c.png)
+
+### 3.메인 화면
+![메인 화면](https://user-images.githubusercontent.com/58020519/106419601-272f0200-649c-11eb-9d9d-c22ca585958c.png)
+
 ## 동작 환경
 프론트 서버
 Node.js 	14.15.0.
@@ -11,7 +26,7 @@ java 	openJDK Runtime Environment 1.8.0_272
 go		1.15.4
 docker 	20.10.0
 ***
-## 동작 방식
+## 실행 방식
 위에 제시한 모든 환경을 설치 후 아래의 명령을 따르면 됨
 
 1.프론트 서버, 백엔드 서버, 블록체인 네트워크 실행 
