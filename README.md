@@ -3,6 +3,15 @@
   
 아래의 논문 내용을 참고하여 구현  
 ***Smart Contract-Based AccessControl for the Internet of Things - Yuanyu Zhang, Member, IEEE, Shoji Kasahara, Member, IEEE, Yulong Shen, Member, IEEE,***
+
+## 목적
+블록체인 및 스마트 컨트랙트를 이용하여 비 중앙방식의 네트워크 접근제어 시스템을 구현하였다.
+
+기존 접근 제어 시스템의 문제점인 중앙 서버의 부하와 별도의 장비 추가를 위한 비용증가, 보안성 약화 등의 문제점을 해소할 수 있으며 블록체인 기반 시스템의 장점인 부하 분산, 데이터에 대한 무결성, 가용성의 증대를 가져올 수 있다.
+
+## 시스템 구조
+![시스템 구조](https://user-images.githubusercontent.com/58020519/108621919-02b1be80-7479-11eb-807f-e8bb5806f98d.png)
+
 ## 동작 방식
 가장 초기 설정에서 채널이 없을 시 블록체인 네트워크에 채널 생성 및 체인 코드 업로드  
 이후 공유할 네트워크 환경을 추가하고 허용할 단말 노드들의 정보를 입력하여 네트워크 공유  
