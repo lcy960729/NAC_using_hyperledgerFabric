@@ -4,6 +4,9 @@
 아래의 논문 내용을 참고하여 구현  
 ***Smart Contract-Based AccessControl for the Internet of Things - Yuanyu Zhang, Member, IEEE, Shoji Kasahara, Member, IEEE, Yulong Shen, Member, IEEE,***
 
+## 개인 결과물 노션 페이지
+[프로젝트 개인 결과물 노션 페이지](https://www.notion.so/lcy960729/NAC-aeb5d0cb319544f49980601da4631da0)
+
 ## 목적
 블록체인 및 스마트 컨트랙트를 이용하여 비 중앙방식의 네트워크 접근제어 시스템을 구현하였다.
 
